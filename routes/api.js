@@ -15,6 +15,7 @@ var secure = require('ssl-express-www');
 var cors = require('cors');
 //var zrapi = require("zrapi");
 //var dotenv = require("dotenv").config()
+var Canvas = require("canvas");
 var scrapeYt = require("scrape-yt");
 var fetch = require('node-fetch');
 var cheerio = require('cheerio');
@@ -270,6 +271,44 @@ router.get('/remove', (req, res, next) => {
 /*
 =====> GACHA CECAN <=====
 */
+router.get('/canvas/welcome', async (req, res, next) => {
+	var apikeyInput = req.query.apikey;
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(listkey.includes(apikeyInput)) {
+		const Canvas = require("canvas");
+// Register Bold font
+Canvas.registerFont(`${__dirname}/assets/fonts/theboldfont.ttf`, { family: "Bold" });
+// Register SketchMatch font
+Canvas.registerFont(`${__dirname}/assets/fonts/SketchMatch.ttf`, { family: "SketchMatch" });
+// Register SketchMatch font
+Canvas.registerFont(`${__dirname}/assets/fonts/LuckiestGuy-Regular.ttf`, { family: "luckiest guy" });
+// Register KeepCalm font
+Canvas.registerFont(`${__dirname}/assets/fonts/KeepCalm-Medium.ttf`, { family: "KeepCalm" });
+
+module.exports.Base = require('./src/greetings/Base');
+module.exports.Lickanime = require('./src/linz/Lick');
+module.exports.Burnsp = require('./src/linz/Burn');
+module.exports.Welcome = require('./src/greetings/Welcome');
+module.exports.Goodbye = require('./src/greetings/Goodbye');
+const ling = require("knights-canvas"),
+const  fs = require('fs');
+
+const image = await new ling.Goodbye()
+    .setUsername("LING MO")
+    .setGuildName("Frontline")
+    .setGuildIcon("https://pandal.page/imgs/imgs/608d550e2075c.jpg")
+    .setMemberCount("404")
+    .setAvatar("https://pandal.page/imgs/imgs/60960b4ce3129.jpg")
+    .setBackground("https://pandal.page/imgs/imgs/60a3cf9d08a5c.jpg")
+    .toAttachment();
+  
+  data = image.toBuffer();
+  await fs.writeFileSync(__path +'/tmp/swelkom.png', data)
+	} else {
+    res.json(loghandler.invalidKey)
+  }
+})
+
 router.get('/china', async (req, res, next) => {
   var apikeyInput = req.query.apikey;
   if(!apikeyInput) return res.json(loghandler.notparam)
